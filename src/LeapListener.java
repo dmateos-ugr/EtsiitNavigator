@@ -20,7 +20,28 @@ class Vector2 {
     public static Vector2 from(Vector v) {
         return new Vector2(v.getX(), v.getY());
     }
+
+    public boolean isInsideRect(Rect rect) {
+        return x >= rect.top_left.x && x <= rect.bottom_right.x &&
+                y >= rect.top_left.y && y <= rect.bottom_right.y;
+    }
 }
+
+
+//EN PROCESO
+class Rect {
+    Vector2 top_left, bottom_right;
+
+    public Rect(float top, float left, float bottom, float right) {
+        top_left = new Vector2(top, left);
+        bottom_right = new Vector2(bottom, right);
+    }
+
+    public static Rect ofSize(float top, float left, float height, float width) {
+        return new Rect(top, left, top+height, left+width);
+    }
+}
+
 
 public class LeapListener extends Listener {
     // Tamaño de los planos
@@ -29,14 +50,23 @@ public class LeapListener extends Listener {
 
     private long lastSwipeTimestampMicrosecs;
 
+    private boolean insideRect;
+    private long insideRectSinceTimestampMicrosecs;
+    private boolean insideRectAlreadyClicked;
+
+
+
     // Transformar un punto 3D del frame a un punto 2D de la app
     private Vector2 toAppPoint(Vector point, Frame frame) {
         // https://developer-archive.leapmotion.com/documentation/v2/javascript/devguide/Leap_Coordinate_Mapping.html
         InteractionBox iBox = frame.interactionBox();
         Vector normalizedPoint = iBox.normalizePoint(point);
 
-        float appX = normalizedPoint.getX() * APP_WIDTH;
-        float appY = (1 - normalizedPoint.getY()) * APP_HEIGHT;
+        normalizedPoint = normalizedPoint.times(2f); // scale
+        normalizedPoint = normalizedPoint.minus(new Vector(.5f, .5f, .5f));
+
+        float appX = Math.min(normalizedPoint.getX() * APP_WIDTH, APP_WIDTH);
+        float appY = Math.min((1 - normalizedPoint.getY()) * APP_HEIGHT, APP_HEIGHT);
         return new Vector2(appX, appY);
     }
 
@@ -46,7 +76,7 @@ public class LeapListener extends Listener {
 
     public void onConnect(Controller controller) {
         System.out.println("LeapListener onConnect");
-        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
+        //controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
         controller.enableGesture(Gesture.Type.TYPE_SWIPE);
         controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
         controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
@@ -88,11 +118,36 @@ public class LeapListener extends Listener {
     }
     */
 
+
     public void onFrame(Controller controller) {
         Frame frame = controller.frame();
 
+
         if (frame.hands().count() > 0) {
             Hand hand = frame.hands().get(0);
+
+            // Posicion de la palma de la mano: es lo que mejor funciona
+            Vector2 p = toAppPoint(hand.stabilizedPalmPosition(), frame);
+            Mouse.moveTo(p);
+            System.out.print("\r" + p);
+
+            // Ejemplo de lo del rectangulo. Lo suyo es hacer algo similar para cada rectangulo de las fotos.
+            insideRect = p.isInsideRect(new Rect(800, 600,1000, 800));
+            if (insideRect) {
+                if (!insideRectAlreadyClicked) {
+                    if (insideRectSinceTimestampMicrosecs == 0)
+                        insideRectSinceTimestampMicrosecs = frame.timestamp();
+                    if (frame.timestamp() - insideRectSinceTimestampMicrosecs >= 1_000_000) {
+                        System.out.println("inside rect for 1s");
+                        insideRectAlreadyClicked = true;
+                    }
+                }
+            } else {
+                insideRectSinceTimestampMicrosecs = 0;
+                insideRectAlreadyClicked = false;
+            }
+
+
             Finger finger = hand.fingers().get(1); // dedo indice
             if (finger.isExtended()) {
                 /*
@@ -111,9 +166,10 @@ public class LeapListener extends Listener {
                  */
 
 
+
                 // Obtener a donde apunta el dedo. Bastante inestable
                 /*
-                int SCREEN_DISTANCE_FROM_DEVICE = 500;
+                int SCREEN_DISTANCE_FROM_DEVICE = 1000;
 
                 Vector planePoint = new Vector(0, 0, -SCREEN_DISTANCE_FROM_DEVICE);
                 Vector planeNormal = new Vector(0, 0, 1);
@@ -132,15 +188,19 @@ public class LeapListener extends Listener {
                 y = Math.min(y, APP_HEIGHT);
 
                 //System.out.print("\r" + result);
-                System.out.print("\r" + new Vector2(x, y));
-                Mouse.moveTo((int)x, (int)y);
-
+                Vector2 appPoint = new Vector2(x, y);
+                System.out.print("\r" + appPoint);
+                Mouse.moveTo(appPoint);
                  */
 
-                // Lo mas facil: posicion del dedo sin tener en cuenta a donde apunta
+
+                /*
+                // Lo mas facil: posicion del dedo sin tener en cuenta a donde apunta. Pero funciona mejor lo de la
+                // palma de la mano.
                 Vector2 appPoint = toAppPoint(finger.stabilizedTipPosition(), frame);
                 Mouse.moveTo(appPoint);
                 System.out.print("\r" + appPoint);
+                 */
 
                 try{
                     Thread.sleep(50);
@@ -150,9 +210,11 @@ public class LeapListener extends Listener {
         }
 
 
+
         for (Gesture gesture : frame.gestures()) {
             switch (gesture.type()) {
                 case TYPE_SCREEN_TAP: {
+                    /*
                     ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
 
                     // Creo que lo mejor es ignorar la posicion del screenTap y usar solo la posicion actual del cursor
@@ -163,16 +225,18 @@ public class LeapListener extends Listener {
                     Vector2 appPoint = toAppPoint(screenTap.pointable().stabilizedTipPosition(), frame);
                     System.out.println("screen tap: " + appPoint.x + ", " + appPoint.y + ", " + screenTap.state());
                     Mouse.click();
+
+                     */
                     // TODO: enseñar popup
                 }
 
                 case TYPE_KEY_TAP: {
-                    /*
                     // Falla mas que las escopetillas de las ferias
                     KeyTapGesture keyTap = new KeyTapGesture(gesture);
                     Vector2 appPoint = toAppPoint(keyTap.pointable().stabilizedTipPosition(), frame);
                     System.out.println("key tap: " + appPoint.x + ", " + appPoint.y + ", " + keyTap.state());
-                    */
+                    Mouse.click();
+
                 }
 
                 case TYPE_CIRCLE: {
