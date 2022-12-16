@@ -34,6 +34,29 @@ public final class DisplayImage {
 
     }
 
+    private String getTitulo(int pos){
+        String vuelta="";
+
+
+        if(pos==0) {
+            vuelta = "Plano ETSIIT completo";
+        }else if(pos==1){
+            vuelta="Plano ETSIIT quinta planta";
+        }else if(pos==2){
+        vuelta="Plano ETSIIT cuarta planta";
+        }else if(pos==3){
+            vuelta="Plano ETSIIT tercera planta";
+        }else if(pos==4){
+            vuelta="Plano ETSIIT segunda planta";
+        }else if(pos==5){
+            vuelta="Plano ETSIIT primera planta";
+        }else if(pos==6){
+            vuelta="Plano ETSIIT planta baja";
+        }
+
+        return vuelta;
+
+    }
     public DisplayImage() throws IOException
     {
 
@@ -51,7 +74,8 @@ public final class DisplayImage {
         frame=new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setSize(1200,800);
-        //frame.setLocation(300,100);
+        String Titulo=getTitulo(currentIndex);
+        frame.setTitle(Titulo);
 
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
@@ -78,6 +102,8 @@ public final class DisplayImage {
         frame=new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setSize(500,500);
+        String Titulo=getTitulo(currentIndex);
+        frame.setTitle(Titulo);
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
@@ -104,6 +130,8 @@ public final class DisplayImage {
         frame=new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setSize(500,500);
+        String Titulo=getTitulo(currentIndex);
+        frame.setTitle(Titulo);
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
