@@ -5,8 +5,11 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+        //
+        DisplayImage displayImage = new DisplayImage();
+
         // Create a listener and controller
-        LeapListener listener = new LeapListener();
+        LeapListener listener = new LeapListener(displayImage);
         Controller controller = new Controller();
 
         // Have the sample listener receive events from the controller

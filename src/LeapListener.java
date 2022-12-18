@@ -45,15 +45,14 @@ class Rect {
 
 public class LeapListener extends Listener {
     // Tamaño de los planos
-    final int APP_WIDTH = 1600; //800;
-    final int APP_HEIGHT = 900; //600;
+
+    DisplayImage displayImage;
 
     private long lastSwipeTimestampMicrosecs;
 
     private boolean insideRect;
     private long insideRectSinceTimestampMicrosecs;
     private boolean insideRectAlreadyClicked;
-
 
 
     // Transformar un punto 3D del frame a un punto 2D de la app
@@ -65,9 +64,18 @@ public class LeapListener extends Listener {
         normalizedPoint = normalizedPoint.times(2f); // scale
         normalizedPoint = normalizedPoint.minus(new Vector(.5f, .5f, .5f));
 
-        float appX = Math.min(normalizedPoint.getX() * APP_WIDTH, APP_WIDTH);
-        float appY = Math.min((1 - normalizedPoint.getY()) * APP_HEIGHT, APP_HEIGHT);
+        // TODO: pensar si queremos restringir el cursor al area de las imagenes (appWidth y appHeight).
+        // En ese caso necesitaremos tambien la posicion de las imagenes en la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        float width = screenSize.width; // displayImage.appWidth
+        float height = screenSize.height; // displayImage.appHeight
+        float appX = Math.min(normalizedPoint.getX() * width, width);
+        float appY = Math.min((1 - normalizedPoint.getY()) * height, height);
         return new Vector2(appX, appY);
+    }
+
+    public LeapListener(DisplayImage displayImage) {
+        this.displayImage = displayImage;
     }
 
     public void onInit(Controller controller) {
@@ -90,38 +98,9 @@ public class LeapListener extends Listener {
         System.out.println("LeapListener onExit");
     }
 
-    public static Vector lineIntersection(Vector planePoint, Vector planeNormal, Vector linePoint, Vector lineDirection) {
-        if (planeNormal.dot(lineDirection.normalized()) == 0) {
-            return null;
-        }
-
-        float t = (planeNormal.dot(planePoint) - planeNormal.dot(linePoint)) / planeNormal.dot(lineDirection.normalized());
-        return linePoint.plus(lineDirection.normalized().times(t));
-    }
-
-    /*
-    public static float planeDistance1(Vector linePoint, Vector lineDirection, Vector2 coords) {
-        //t = (-DISTANCE - linePoint.z)/(lineDirection.z)
-        //(x, y, z) = linePoint + lineDirection*t
-        //	= (linePoint.x + lineDirection.x*t, linePoint.y + lineDirection.y*t, -DISTANCE)
-        //
-        //x = linePoint.x + lineDirection.x*(-DISTANCE - linePoint.z)/lineDirection.z
-        //(x - linePoint.x)*lineDirection.z/lineDirection.x + linePoint.z = -DISTANCE
-        //(y - linePoint.y)*lineDirection.z/lineDirection.y + linePoint.z = -DISTANCE
-        float d = (coords.x - linePoint.getX())*lineDirection.getZ()/lineDirection.getX() + linePoint.getZ();
-        return -d;
-    }
-
-    public static float planeDistance2(Vector linePoint, Vector lineDirection, Vector2 coords) {
-        float d = (coords.y - linePoint.getY())*lineDirection.getZ()/lineDirection.getY() + linePoint.getZ();
-        return -d;
-    }
-    */
-
 
     public void onFrame(Controller controller) {
         Frame frame = controller.frame();
-
 
         if (frame.hands().count() > 0) {
             Hand hand = frame.hands().get(0);
@@ -131,7 +110,8 @@ public class LeapListener extends Listener {
             Mouse.moveTo(p);
             System.out.print("\r" + p);
 
-            // Ejemplo de lo del rectangulo. Lo suyo es hacer algo similar para cada rectangulo de las fotos.
+            // Ejemplo de lo del rectangulo. Lo suyo es hacer algo similar para cada rectangulo de las fotos que se
+            // pueda clickar. Cuando se tengan los rectangulos hechos se piensa como generalizar esto.
             insideRect = p.isInsideRect(new Rect(800, 600,1000, 800));
             if (insideRect) {
                 if (!insideRectAlreadyClicked) {
@@ -147,68 +127,11 @@ public class LeapListener extends Listener {
                 insideRectAlreadyClicked = false;
             }
 
-
             Finger finger = hand.fingers().get(1); // dedo indice
             if (finger.isExtended()) {
-                /*
-                // Intento de calibracion, no funciona
-                Vector planeNormal = new Vector(0, 0, 1);
-                Vector linePoint = finger.tipPosition();
-                Vector lineDirection = finger.direction();
-                float distance1 = planeDistance1(linePoint, lineDirection, new Vector2(0, 0));
-                Vector planePoint1 = new Vector(0, 0, -distance1);
-                float distance2 = planeDistance2(linePoint, lineDirection, new Vector2(0, 0));
-                Vector planePoint2 = new Vector(0, 0, -distance2);
-
-                Vector intersec1 = lineIntersection(planePoint1, planeNormal, linePoint, lineDirection);
-                Vector intersec2 = lineIntersection(planePoint2, planeNormal, linePoint, lineDirection);
-                System.out.println("\r" + distance1 + " " + intersec1 + " " + distance2 + " " + intersec2);
-                 */
-
-
-
-                // Obtener a donde apunta el dedo. Bastante inestable
-                /*
-                int SCREEN_DISTANCE_FROM_DEVICE = 1000;
-
-                Vector planePoint = new Vector(0, 0, -SCREEN_DISTANCE_FROM_DEVICE);
-                Vector planeNormal = new Vector(0, 0, 1);
-                Vector linePoint = finger.stabilizedTipPosition();
-                Vector lineDirection = finger.direction();
-                Vector result = lineIntersection(planePoint, planeNormal, linePoint, lineDirection);
-                //Vector2 appPoint =
-
-                float x = result.getX() + APP_WIDTH/2;
-                x = Math.max(x, 0);
-                x = Math.min(x, APP_WIDTH);
-
-                float y = -result.getY();
-                //y +=
-                y = Math.max(y, 0);
-                y = Math.min(y, APP_HEIGHT);
-
-                //System.out.print("\r" + result);
-                Vector2 appPoint = new Vector2(x, y);
-                System.out.print("\r" + appPoint);
-                Mouse.moveTo(appPoint);
-                 */
-
-
-                /*
-                // Lo mas facil: posicion del dedo sin tener en cuenta a donde apunta. Pero funciona mejor lo de la
-                // palma de la mano.
-                Vector2 appPoint = toAppPoint(finger.stabilizedTipPosition(), frame);
-                Mouse.moveTo(appPoint);
-                System.out.print("\r" + appPoint);
-                 */
-
-                try{
-                    Thread.sleep(50);
-                }catch(InterruptedException e){
-                }
+                // quitado (la palma de la mano funciona mejor)
             }
         }
-
 
 
         for (Gesture gesture : frame.gestures()) {
@@ -259,10 +182,10 @@ public class LeapListener extends Listener {
                     lastSwipeTimestampMicrosecs = frame.timestamp();
 
                     if (swipe.direction().getY() > 0.7) {
-                        // TODO: subir planta (o bajar)
+                        displayImage.baja();
                         System.out.println("swipe up");
                     } else if (swipe.direction().getY() < -0.7) {
-                        // TODO: subir planta (o bajar)
+                        displayImage.sube();
                         System.out.println("swipe down");
                     } else if (swipe.direction().getX() > 0.7) {
                         // TODO: quitar popup
