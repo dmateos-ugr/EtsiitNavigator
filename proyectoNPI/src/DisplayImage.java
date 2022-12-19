@@ -57,6 +57,11 @@ public final class DisplayImage {
         return vuelta;
 
     }
+
+    public int getCurrentIndex(){
+        return currentIndex;
+    }
+
     public DisplayImage() throws IOException
     {
 

@@ -4,44 +4,73 @@ import javax.swing.*;
 
 public class popupButton(int pos) throws IOException extends JFrame implements ActionListener {
 
+    private DisplayImage displayImage;
 // popup
     Popup p;
 
     // constructor
     pop(){
-        // create a frame
-        JFrame f = new JFrame(new File("Planos/completa.jpg"));
 
-        // create a label
-        JLabel l = new JLabel("Secretaria");
+        if (displayImage.getCurrentIndex() == 0){
+            JFrame f = new JFrame(new File("Planos/completa.jpg"));
 
-        f.setSize(400, 400);
+            //Butón de biblioteca:
+            JButton butonBiblioteca = new JButton(new ImageIcon("Planos/dot.png"));
+            butonBiblioteca.setBounds(392,190,14,14);
+            JLabel l = new JLabel("Biblioteca");
+            JPanel p = new JPanel();
+            p.setBackground(Color.blue);
+            p.add(l);
+            PopupFactory pf = new PopupFactory();
+            p = pf.getPopup(f, p, 180, 100);
+            butonBiblioteca.addActionListener(this);
+            f.add(butonBiblioteca);
+            f.show();
 
-        PopupFactory pf = new PopupFactory();
+            //Butón de secretaria:
+            JButton butonBiblioteca = new JButton(new ImageIcon("Planos/dot.png"));
+            butonBiblioteca.setBounds(154,461,14,14);
+            JLabel l = new JLabel("Secretaria");
+            JPanel p = new JPanel();
+            p.setBackground(Color.blue);
+            p.add(l);
+            PopupFactory pf = new PopupFactory();
+            p = pf.getPopup(f, p, 180, 100);
+            butonBiblioteca.addActionListener(this);
+            f.add(butonBiblioteca);
+            f.show();
 
-        // create a panel
-        JPanel p2 = new JPanel();
-
-        // set Background of panel
-        p2.setBackground(Color.blue);
-
-        p2.add(l);
-
-        // create a popup
-        p = pf.getPopup(f, p2, 180, 100);
-
-        // create a button
-        JButton b = new JButton(new ImageIcon("Planos/dot.png"));
-
-        // add action listener
-        b.addActionListener(this);
-
-        // create a panel
-        JPanel p1 = new JPanel();
-
-        p1.add(b);
-        f.add(p1);
-        f.show();
+            //Butón de cafeteria:
+            JButton butonBiblioteca = new JButton(new ImageIcon("Planos/dot.png"));
+            butonBiblioteca.setBounds(355,283,14,14);
+            JLabel l = new JLabel("Cafeteria");
+            JPanel p = new JPanel();
+            p.setBackground(Color.blue);
+            p.add(l);
+            PopupFactory pf = new PopupFactory();
+            p = pf.getPopup(f, p, 180, 100);
+            butonBiblioteca.addActionListener(this);
+            f.add(butonBiblioteca);
+            f.show();
+        }
+        if (displayImage.getCurrentIndex() == 1){
+            JFrame f = new JFrame(new File("Planos/quinta.jpg"));
+        }
+        if (displayImage.getCurrentIndex() == 2){
+            JFrame f = new JFrame(new File("Planos/cuarta.jpg"));
+        }
+        if (displayImage.getCurrentIndex() == 3){
+            JFrame f = new JFrame(new File("Planos/tercera.jpg"));
+        }
+        if (displayImage.getCurrentIndex() == 4){
+            JFrame f = new JFrame(new File("Planos/segunda.jpg"));
+        }
+        if (displayImage.getCurrentIndex() == 5){
+            JFrame f = new JFrame(new File("Planos/primera.jpg"));
+        }
+        if (displayImage.getCurrentIndex() == 6){
+            JFrame f = new JFrame(new File("Planos/baja.jpg"));
+        }
     }
 
     // if the button is pressed
