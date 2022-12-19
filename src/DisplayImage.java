@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,6 +24,12 @@ public final class DisplayImage {
     ImageIcon[] imgs;
     JFrame frame;
     int currentIndex=0;
+    JButton b;
+
+    popUpClass popupD, popupB, popupC;
+
+
+
     private void setImg(int pos) {
         // Obtener label y actualizar su imagen
         JLabel lbl = (JLabel)frame.getContentPane().getComponent(0);
@@ -29,6 +37,8 @@ public final class DisplayImage {
 
         // Actualizar titulo del frame
         frame.setTitle(imageTitulos[pos]);
+
+
     }
 
     // Devuelve la imagen aumentada lo máximo posible de forma que quepa en la app y mantenga el mismo ratio
@@ -71,13 +81,89 @@ public final class DisplayImage {
             }
         }
 
+
+
+
+
+
+
+        b=new JButton("B");
+        JButton c=new JButton("C");
+        JButton d=new JButton("D");
+
+        popupD= new popUpClass("botonD");
+        popupB= new popUpClass("botonB");
+        popupC= new popUpClass("botonC");
+
         // Crear frame
         frame = new JFrame();
+
+
+
+
         frame.setLayout(new FlowLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // ventana maximizada
         frame.add(new JLabel()); // modificado por setImg(pos)
+        frame.add(b);
+        frame.add(c);
+        frame.add(d);
+        //frame.add(jFrame);
+
+
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        final int[] contador1 = {0};
+        final int[] contador2 = {0};
+        final int[] contador3 = {0};
+
+
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                contador1[0] = contador1[0] +1;
+                if((contador1[0]%2)==0){
+                    popupB.cambiarVista(false);
+                    popupB.cerrar(); //NO TOY SEGURA DE ESTO
+                    frame.requestFocus();
+                }else{
+                    popupB.cambiarVista(true);
+                    frame.requestFocus();
+                }
+            }
+        });
+
+        c.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                contador2[0] = contador2[0] +1;
+                if((contador2[0]%2)==0){
+                    popupC.cambiarVista(false);
+                    popupC.cerrar();
+                    frame.requestFocus();
+                }else{
+                    popupC.cambiarVista(true);
+                    frame.requestFocus();
+                }
+            }
+        });
+        d.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                contador3[0] = contador3[0] +1;
+                if((contador3[0]%2)==0){
+                    popupD.cambiarVista(false);
+                    popupD.cerrar();
+                    frame.requestFocus();
+                }else{
+                    popupD.cambiarVista(true);
+                    frame.requestFocus();
+                }
+            }
+        });
+
+        frame.requestFocus(); //IMPORTANTE PARA QUE CUANDO AÑADAMOS EL BOTON EL PROGRAMA SIGA HACIENDO CASO
 
         // TODO: añadir rectangulos
 
