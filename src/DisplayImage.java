@@ -91,9 +91,15 @@ public final class DisplayImage {
         JButton c=new JButton("C");
         JButton d=new JButton("D");
 
-        popupD= new popUpClass("botonD");
+        /*
+        b.setBounds(392,190,14,14);
+        c.setBounds(154,461,14,14);
+        d.setBounds(355,283,14,14);
+         */
+
         popupB= new popUpClass("botonB");
         popupC= new popUpClass("botonC");
+        popupD= new popUpClass("botonD");
 
         // Crear frame
         frame = new JFrame();
@@ -112,6 +118,7 @@ public final class DisplayImage {
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 
         final int[] contador1 = {0};
