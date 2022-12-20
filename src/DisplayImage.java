@@ -19,16 +19,45 @@ public final class DisplayImage {
             "Plano ETSIIT segunda planta", "Plano ETSIIT primera planta", "Plano ETSIIT planta baja",
     };
 
+    //num de botones que tiene cada planta
+    static final int[] numbotones = new int[]{2, 1, 3, 3, 2, 2, 1};
+
+    //completa -> botones: 2
+    static final String[] nomCompleta = new String[]{"ETSIIT", "ETSIIT completa"};
+    static final String[] infoCompleta = new String[]{"ETSIIT", "ETSIIT completa"};
+
+    //quinta -> botones: 1
+    static final String[] nomQuinta= new String[]{ "ETSIIT quinta"};
+    static final String[] infoQuinta = new String[]{"ETSIIT quinta"};
+
+    //cuarta -> botones: 3
+    static final String[] nomCuarta = new String[]{"ETSIIT", "ETSIIT cuarta", "botonInfo"};
+    static final String[] infoCuarta = new String[]{"ETSIIT", "ETSIIT cuarta", "botonInfo"};
+
+    //tercera -> botones: 3
+    static final String[] nomTercera = new String[]{"ETSIIT", "ETSIIT tercera","botonInfo"};
+    static final String[] infoTercera = new String[]{"ETSIIT", "ETSIIT tercera","botonInfo"};
+
+    //segunda -> botones: 2
+    static final String[] nomSegunda = new String[]{"ETSIIT", "ETSIIT segunda"};
+    static final String[] infoSegunda = new String[]{"ETSIIT", "ETSIIT segunda"};
+
+    //primera -> botones: 2
+    static final String[] nomPrimera = new String[]{"ETSIIT", "ETSIIT primera"};
+    static final String[] infoPrimera = new String[]{"ETSIIT", "ETSIIT primera"};
+
+    //baja -> botones: 1
+    static final String[] nomBaja = new String[]{"ETSIIT baja"};
+    static final String[] infoBaja = new String[]{"ETSIIT baja"};
+
     int appWidth, appHeight;
 
     ImageIcon[] imgs;
     JFrame frame;
     int currentIndex=0;
-    JButton b;
+    int currenBoton=0;
 
-    popUpClass popupD, popupB, popupC;
-
-
+    infoPlanta[] botones;
 
     private void setImg(int pos) {
         // Obtener label y actualizar su imagen
@@ -37,8 +66,47 @@ public final class DisplayImage {
 
         // Actualizar titulo del frame
         frame.setTitle(imageTitulos[pos]);
+        displayButtons(pos);
 
 
+    }
+
+    private void iniBotones(){
+        botones=new infoPlanta[imageFilenames.length];
+
+        infoPlanta completa=new infoPlanta(nomCompleta.length,nomCompleta, infoCompleta,frame);
+        infoPlanta quinta=new infoPlanta(nomQuinta.length,nomQuinta,infoQuinta,frame);
+        infoPlanta cuarta=new infoPlanta(nomCuarta.length, nomCuarta,infoCuarta,frame);
+        infoPlanta tercera=new infoPlanta(nomTercera.length,nomTercera,infoTercera,frame);
+        infoPlanta segunda=new infoPlanta(nomSegunda.length,nomSegunda, infoSegunda, frame);
+        infoPlanta primera=new infoPlanta(nomPrimera.length, nomPrimera, infoPrimera, frame);
+        infoPlanta baja=new infoPlanta(nomBaja.length,nomBaja, infoBaja,frame);
+
+        botones[0]=completa;
+        botones[1]=quinta;
+        botones[2]=cuarta;
+        botones[3]=tercera;
+        botones[4]=segunda;
+        botones[5]=primera;
+        botones[6]=baja;
+
+
+    }
+
+    private void displayButtons(int pos){
+        currenBoton=numbotones[pos];
+        for(int i=0; i<currenBoton; i++){
+            botones[currentIndex].getButton(i).setVisible(true);
+            frame.add(botones[currentIndex].getButton(i));
+        }
+
+    }
+
+    private void hidebuttons(){
+
+        for(int i=0; i<currenBoton; i++){
+            botones[currentIndex].getButton(i).setVisible(false);
+        }
     }
 
     // Devuelve la imagen aumentada lo máximo posible de forma que quepa en la app y mantenga el mismo ratio
@@ -83,109 +151,52 @@ public final class DisplayImage {
 
 
 
-
-
-
-
-        b=new JButton("B");
-        JButton c=new JButton("C");
-        JButton d=new JButton("D");
-
-        /*
-        b.setBounds(392,190,14,14);
-        c.setBounds(154,461,14,14);
-        d.setBounds(355,283,14,14);
-         */
-
-        popupB= new popUpClass("botonB");
-        popupC= new popUpClass("botonC");
-        popupD= new popUpClass("botonD");
-
         // Crear frame
         frame = new JFrame();
 
 
+        FlowLayout layout=new FlowLayout();
 
 
-        frame.setLayout(new FlowLayout());
+
+
+        frame.setLayout(layout);
+
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // ventana maximizada
+        //frame.setExtendedState(JFrame.HIDE_ON_CLOSE);
         frame.add(new JLabel()); // modificado por setImg(pos)
-        frame.add(b);
-        frame.add(c);
-        frame.add(d);
-        //frame.add(jFrame);
+
+
+        iniBotones();
+
+        //displayButtons();
 
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-
-        final int[] contador1 = {0};
-        final int[] contador2 = {0};
-        final int[] contador3 = {0};
-
-
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contador1[0] = contador1[0] +1;
-                if((contador1[0]%2)==0){
-                    popupB.cambiarVista(false);
-                    popupB.cerrar(); //NO TOY SEGURA DE ESTO
-                    frame.requestFocus();
-                }else{
-                    popupB.cambiarVista(true);
-                    frame.requestFocus();
-                }
-            }
-        });
-
-        c.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contador2[0] = contador2[0] +1;
-                if((contador2[0]%2)==0){
-                    popupC.cambiarVista(false);
-                    popupC.cerrar();
-                    frame.requestFocus();
-                }else{
-                    popupC.cambiarVista(true);
-                    frame.requestFocus();
-                }
-            }
-        });
-        d.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contador3[0] = contador3[0] +1;
-                if((contador3[0]%2)==0){
-                    popupD.cambiarVista(false);
-                    popupD.cerrar();
-                    frame.requestFocus();
-                }else{
-                    popupD.cambiarVista(true);
-                    frame.requestFocus();
-                }
-            }
-        });
-
-        frame.requestFocus(); //IMPORTANTE PARA QUE CUANDO AÑADAMOS EL BOTON EL PROGRAMA SIGA HACIENDO CASO
-
         // TODO: añadir rectangulos
 
         frame.addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyPressed(KeyEvent event) {
                 super.keyPressed(event);
                 char key = event.getKeyChar();
                 if (key == '1') {
+                    hidebuttons();
                     sube();
+
                 } else if (key == '2') {
+                    hidebuttons();
                     baja();
+
                 }
             }
         });
+
+
 
         setImg(currentIndex);
     }
@@ -195,6 +206,7 @@ public final class DisplayImage {
     {
         currentIndex = Math.floorMod(currentIndex + 1, imgs.length);
         setImg(currentIndex);
+
     }
 
     public void baja()
