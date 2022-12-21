@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class popUpClass {
@@ -35,7 +37,21 @@ public class popUpClass {
         b.setVisible(true);
         click();
 
+        jd.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent event) {
+                super.keyPressed(event);
+                char key = event.getKeyChar();
+                if (key == 'a') {
+                    jd.setVisible(false);
+                }
+            }
+        });
+
     }
+
+
 
     void click(){
         b.addActionListener(new ActionListener() {
@@ -71,6 +87,10 @@ public class popUpClass {
 
     JButton Button(){
         return b;
+    }
+
+    JDialog Dialog(){
+        return jd;
     }
 
 }

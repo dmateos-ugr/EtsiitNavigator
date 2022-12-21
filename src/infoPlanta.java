@@ -15,12 +15,16 @@ public class infoPlanta {
             planta[i]=new popUpClass(nombres[i],info[i],sup);
         }
 
-       // sup.requestFocus();
+
 
     }
 
     JButton getButton(int a){
         return planta[a].Button();
+    }
+
+    JDialog getDialog(int a){
+        return planta[a].Dialog();
     }
 
     public int getNum(){

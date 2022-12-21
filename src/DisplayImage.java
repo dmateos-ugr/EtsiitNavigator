@@ -57,6 +57,8 @@ public final class DisplayImage {
     int currentIndex=0;
     int currenBoton=0;
 
+
+
     infoPlanta[] botones;
 
     private void setImg(int pos) {
@@ -95,10 +97,13 @@ public final class DisplayImage {
 
     private void displayButtons(int pos){
         currenBoton=numbotones[pos];
+
         for(int i=0; i<currenBoton; i++){
             botones[currentIndex].getButton(i).setVisible(true);
             frame.add(botones[currentIndex].getButton(i));
+
         }
+        hidepopups();
 
     }
 
@@ -213,5 +218,12 @@ public final class DisplayImage {
     {
         currentIndex = Math.floorMod(currentIndex - 1, imgs.length);
         setImg(currentIndex);
+    }
+
+    public void hidepopups(){
+
+        for(int i=0; i<currenBoton; i++){
+            botones[currentIndex].getDialog(i).setVisible(false);
+        }
     }
 }

@@ -189,9 +189,11 @@ public class LeapListener extends Listener {
                         System.out.println("swipe down");
                     } else if (swipe.direction().getX() > 0.7) {
                         // TODO: quitar popup
+                        displayImage.hidepopups();
                         System.out.println("swipe right");
                     } else if (swipe.direction().getX() < -0.7) {
                         // TODO: quitar popup
+                        displayImage.hidepopups();
                         System.out.println("swipe left");
                     }
             }
