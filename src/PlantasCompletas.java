@@ -70,7 +70,7 @@ public final class PlantasCompletas {
                 String[] infoSegunda = new String[]{uno};
 
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(200,200,200,200),
+                        new Rectangle(200,140,200,200),
                 };
                 res = new Planta(img, _img,_old, nomSegunda, infoSegunda, rectBoton);
             }
@@ -83,8 +83,8 @@ public final class PlantasCompletas {
                 String[] nomPrimera = new String[]{"Biblioteca", "Aulas de estudio"};
                 String[] infoPrimera = new String[]{uno, dos};
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100)
+                        new Rectangle(221,161,200,200),
+                        new Rectangle(130,375,100,100)
                 };
                 res = new Planta(img, _img,_old, nomPrimera, infoPrimera, rectBoton);
             }
@@ -99,7 +99,7 @@ public final class PlantasCompletas {
                 String[] infoBaja = new String[]{uno,dos};
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100)
+                        new Rectangle(530,320,100,100)
                 };
                 res = new Planta(img, _img, _old, nomBaja, infoBaja, rectBoton);
             }
@@ -115,9 +115,9 @@ public final class PlantasCompletas {
                 String[] nomSotano = new String[]{"Comedores","Cafeteria","Salon de actos"};
                 String[] infoSotano = new String[]{uno,dos,tres};
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100),
-                        new Rectangle(10,10,100,100)
+                        new Rectangle(312,280,200,100),
+                        new Rectangle(165,231,100,100),
+                        new Rectangle(265,240,100,100)
                 };
                 res = new Planta(img, _img,_old, nomSotano, infoSotano, rectBoton);
             }
