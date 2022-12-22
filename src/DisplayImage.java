@@ -15,6 +15,8 @@ public final class DisplayImage {
                 sube();
             }else if(e.getKeyChar() == '2' && e.getID() == KeyEvent.KEY_PRESSED){
                 baja();
+            }else if(e.getKeyChar() == 'd' && e.getID() == KeyEvent.KEY_PRESSED){
+                hidepopups();
             }
             return false;
         }
@@ -36,7 +38,7 @@ public final class DisplayImage {
     int currentIndex=0;
 
     private void setPlanta(int pos) throws IOException {
-        System.out.println(pos);
+        currentIndex = pos;
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, String.valueOf(pos));
         // Actualizar titulo del frame
@@ -109,6 +111,10 @@ public final class DisplayImage {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void hidepopups(){
+        JOptionPane.getRootFrame().dispose();
     }
 
 }
