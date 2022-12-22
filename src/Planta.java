@@ -4,21 +4,20 @@ import java.awt.*;
 public class Planta {
 
     public static Dimension _canvas;
+    private final Rectangle[] rectBoton;
     public Dimension _img;
 
     //completa -> botones: 2
     public Image imagen;
     public String[] nomCompleta;
     public String[] infoCompleta;
-    public Dimension[] posicionBotones;
-    public Dimension[] dimensionBotones;
 
-    public Planta(Image imagen, Dimension img, String[] nomCompleta, String[] infoCompleta, Dimension[] posicionBotones, Dimension[] dimensionBotones) {
+    public Planta(Image imagen, Dimension img, String[] nomCompleta,
+                  String[] infoCompleta, Rectangle[] botones) {
         this.imagen = imagen;
         this.nomCompleta = nomCompleta;
         this.infoCompleta = infoCompleta;
-        this.posicionBotones = posicionBotones;
-        this.dimensionBotones = dimensionBotones;
+        this.rectBoton = botones;
         this._img = img;
     }
 
@@ -29,11 +28,12 @@ public class Planta {
             JButton jb = new JButton();
             jb.setContentAreaFilled(false);
             jb.setFocusPainted(true);
-            jb.setBounds(posicionBotones[i].width,posicionBotones[i].height,
-                    dimensionBotones[i].width,dimensionBotones[i].height);
+            jb.setBounds(rectBoton[i]);
             jb.setToolTipText(nomCompleta[i]);
             int finalI = i;
-            jb.addActionListener(evt -> JOptionPane.showOptionDialog(null, infoCompleta[finalI],nomCompleta[finalI], JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null));
+            jb.addActionListener(evt -> JOptionPane.showOptionDialog(null, infoCompleta[finalI],
+                    nomCompleta[finalI], JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,
+                    null, new Object[]{}, null));
             res.add(jb, null);
         }
         return res;
