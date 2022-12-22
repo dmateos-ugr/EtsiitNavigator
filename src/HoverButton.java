@@ -1,12 +1,8 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 class HoverMouseListener implements MouseListener {
@@ -42,7 +38,7 @@ class HoverMouseListener implements MouseListener {
         gif.setVisible(false);
     }
 }
-public class HoverButton extends JButton {
+public class  HoverButton extends JButton {
     Timer timer;
 
     HoverButton(JLabel gif) {

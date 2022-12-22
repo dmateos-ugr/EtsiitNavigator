@@ -48,23 +48,28 @@ public final class DisplayImage {
         frame.setTitle(imageTitulos[pos]);
     }
 
+    public static Dimension getRatio(Dimension app, Dimension img){
+        float imgRatio = (float)img.width/img.height;
+        float appRatio = (float)app.width/app.height;
+        int width, height;
+        if (imgRatio >= appRatio) {
+            // La imagen es mas ancha que la pantalla
+            width = app.width;
+            height = (int)(width / imgRatio);
+        } else {
+            // La imagen es mas alta que la pantalla
+            height = app.height;
+            width = (int)(app.height * imgRatio);
+        }
+        return new Dimension(width,height);
+    }
 
     // Devuelve la imagen aumentada lo máximo posible de forma que quepa en la app y mantenga el mismo ratio
     private Image getScaledImg(BufferedImage img) {
-        float imgRatio = (float)img.getWidth()/img.getHeight();
-        float appRatio = (float)appWidth/appHeight;
-
-        if (imgRatio >= appRatio) {
-            // La imagen es mas ancha que la pantalla
-            resultWidth = appWidth;
-            resultHeight = (int)(resultWidth /imgRatio);
-        } else {
-            // La imagen es mas alta que la pantalla
-            resultHeight = appHeight;
-            resultWidth = (int)(resultHeight *imgRatio);
-        }
-
-        return img.getScaledInstance(resultWidth, resultHeight, Image.SCALE_SMOOTH);
+        Dimension temp = getRatio(new Dimension(appWidth,appHeight),new Dimension(img.getWidth(),img.getHeight()));
+        resultHeight = temp.height;
+        resultWidth = temp.width;
+        return img.getScaledInstance(temp.width, temp.height, Image.SCALE_SMOOTH);
     }
 
     public DisplayImage() throws IOException {
@@ -81,9 +86,10 @@ public final class DisplayImage {
 
         for(int i=0;i<imageFilenames.length;++i){
             BufferedImage img = ImageIO.read(new File(imageFilenames[i]));
+            Dimension _old = new Dimension(img.getWidth(),img.getHeight());
             Image scaledImg = getScaledImg(img);
             Dimension _img = new Dimension(resultWidth,resultHeight);
-            cards.add(PlantasCompletas.getPlanta(i,scaledImg,_img).getImagePanel(),String.valueOf(i));
+            cards.add(PlantasCompletas.getPlanta(i,scaledImg,_img,_old).getImagePanel(),String.valueOf(i));
         }
         frame.add(cards,BorderLayout.CENTER);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // ventana maximizada

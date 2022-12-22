@@ -2,7 +2,7 @@ import java.awt.*;
 
 public final class PlantasCompletas {
 
-    public static Planta getPlanta(int a,Image img, Dimension _img){
+    public static Planta getPlanta(int a,Image img, Dimension _img, Dimension _old){
         Planta res = null;
         switch(a){
             case 7: {
@@ -19,10 +19,10 @@ public final class PlantasCompletas {
                 String[] nomCompleta = new String[]{"ETSIIT", "Patio"};
                 String[] infoCompleta = new String[]{uno, dos};
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100)
+                        new Rectangle(250,400,100,100),
+                        new Rectangle(170,200,120,100)
                 };
-                res = new Planta(img, _img, nomCompleta, infoCompleta, rectBoton);
+                res = new Planta(img, _img,_old, nomCompleta, infoCompleta, rectBoton);
             }
             break;
             case 6: {
@@ -33,7 +33,7 @@ public final class PlantasCompletas {
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(0,0,0,0)
                 };
-                res = new Planta(img, _img, nomQuinta, infoQuinta, rectBoton);
+                res = new Planta(img, _img,_old, nomQuinta, infoQuinta, rectBoton);
             }
             break;
             case 5: {
@@ -46,7 +46,7 @@ public final class PlantasCompletas {
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
                 };
-                res = new Planta(img, _img, nomCuarta, infoCuarta, rectBoton);
+                res = new Planta(img, _img,_old, nomCuarta, infoCuarta, rectBoton);
             }
             break;
             case 4: {
@@ -57,7 +57,7 @@ public final class PlantasCompletas {
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
                 };
-                res = new Planta(img, _img, nomTercera, infoTercera, rectBoton);
+                res = new Planta(img, _img,_old, nomTercera, infoTercera, rectBoton);
             }
             break;
 
@@ -72,7 +72,7 @@ public final class PlantasCompletas {
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
                 };
-                res = new Planta(img, _img, nomSegunda, infoSegunda, rectBoton);
+                res = new Planta(img, _img,_old, nomSegunda, infoSegunda, rectBoton);
             }
             break;
             case 2: {
@@ -86,7 +86,7 @@ public final class PlantasCompletas {
                         new Rectangle(200,200,200,200),
                         new Rectangle(100,100,100,100)
                 };
-                res = new Planta(img, _img, nomPrimera, infoPrimera, rectBoton);
+                res = new Planta(img, _img,_old, nomPrimera, infoPrimera, rectBoton);
             }
             break;
 
@@ -101,7 +101,7 @@ public final class PlantasCompletas {
                         new Rectangle(200,200,200,200),
                         new Rectangle(100,100,100,100)
                 };
-                res = new Planta(img, _img, nomBaja, infoBaja, rectBoton);
+                res = new Planta(img, _img, _old, nomBaja, infoBaja, rectBoton);
             }
             break;
 
@@ -119,7 +119,7 @@ public final class PlantasCompletas {
                         new Rectangle(100,100,100,100),
                         new Rectangle(10,10,100,100)
                 };
-                res = new Planta(img, _img, nomSotano, infoSotano, rectBoton);
+                res = new Planta(img, _img,_old, nomSotano, infoSotano, rectBoton);
             }
             break;
         }
