@@ -5,7 +5,7 @@ public final class PlantasCompletas {
     public static Planta getPlanta(int a,Image img, Dimension _img){
         Planta res = null;
         switch(a){
-            case 6: {
+            case 7: {
                 //completa -> botones: 2
                 String[] nomCompleta = new String[]{"ETSIIT", "ETSIIT completa"};
                 String[] infoCompleta = new String[]{"ETSIIT", "ETSIIT completa"};
@@ -16,7 +16,7 @@ public final class PlantasCompletas {
                 res = new Planta(img, _img, nomCompleta, infoCompleta, rectBoton);
             }
             break;
-            case 5: {
+            case 6: {
                 //quinta -> botones: 1
                 String[] nomQuinta= new String[]{ "ETSIIT quinta"};
                 String[] infoQuinta = new String[]{"ETSIIT quinta"};
@@ -27,7 +27,7 @@ public final class PlantasCompletas {
                 res = new Planta(img, _img, nomQuinta, infoQuinta, rectBoton);
             }
             break;
-            case 4: {
+            case 5: {
                 //cuarta -> botones: 3
                 String[] nomCuarta = new String[]{"ETSIIT", "ETSIIT cuarta", "botonInfo"};
                 String[] infoCuarta = new String[]{"ETSIIT", "ETSIIT cuarta", "botonInfo"};
@@ -41,7 +41,7 @@ public final class PlantasCompletas {
                 res = new Planta(img, _img, nomCuarta, infoCuarta, rectBoton);
             }
             break;
-            case 3: {
+            case 4: {
                 //tercera -> botones: 3
                 String[] nomTercera = new String[]{"ETSIIT", "ETSIIT tercera","botonInfo"};
                 String[] infoTercera = new String[]{"ETSIIT", "ETSIIT tercera","botonInfo"};
@@ -54,7 +54,7 @@ public final class PlantasCompletas {
             }
             break;
 
-            case 2: {
+            case 3: {
                 //segunda -> botones: 2
                 String[] nomSegunda = new String[]{"ETSIIT", "ETSIIT segunda"};
                 String[] infoSegunda = new String[]{"ETSIIT", "ETSIIT segunda"};
@@ -66,7 +66,7 @@ public final class PlantasCompletas {
                 res = new Planta(img, _img, nomSegunda, infoSegunda, rectBoton);
             }
             break;
-            case 1: {
+            case 2: {
                 //primera -> botones: 2
                 String[] nomPrimera = new String[]{"ETSIIT", "ETSIIT primera"};
                 String[] infoPrimera = new String[]{"ETSIIT", "ETSIIT primera"};
@@ -78,7 +78,7 @@ public final class PlantasCompletas {
             }
             break;
 
-            case 0: {
+            case 1: {
                 String[] nomBaja = new String[]{"ETSIIT baja"};
                 String[] infoBaja = new String[]{"ETSIIT baja"};
                 Rectangle[] rectBoton = new Rectangle[]{
@@ -86,6 +86,18 @@ public final class PlantasCompletas {
                         new Rectangle(100,100,100,100)
                 };
                 res = new Planta(img, _img, nomBaja, infoBaja, rectBoton);
+            }
+            break;
+
+
+            case 0: {
+                String[] nomSotano = new String[]{"ETSIIT sotano"};
+                String[] infoSotano = new String[]{"ETSIIT sotano"};
+                Rectangle[] rectBoton = new Rectangle[]{
+                        new Rectangle(200,200,200,200),
+                        new Rectangle(100,100,100,100)
+                };
+                res = new Planta(img, _img, nomSotano, infoSotano, rectBoton);
             }
             break;
         }

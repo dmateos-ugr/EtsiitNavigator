@@ -26,11 +26,11 @@ public final class DisplayImage {
 
     // Ojo que estos tienen que tener el mismo orden que en PlantasCompletas
     static final String[] imageFilenames = new String[]{
-            "Planos/baja.jpg", "Planos/primera.jpg", "Planos/segunda.jpg", "Planos/tercera.jpg",
+            "Planos/sotano.jpg","Planos/baja.jpg", "Planos/primera.jpg", "Planos/segunda.jpg", "Planos/tercera.jpg",
             "Planos/cuarta.jpg", "Planos/quinta.jpg", "Planos/completa.jpg",
     };
     static final String[] imageTitulos = new String[]{
-            "Plano ETSIIT planta baja", "Plano ETSIIT primera planta", "Plano ETSIIT segunda planta", "Plano ETSIIT tercera planta",
+            "Plano ETSIIT sotano","Plano ETSIIT planta baja", "Plano ETSIIT primera planta", "Plano ETSIIT segunda planta", "Plano ETSIIT tercera planta",
             "Plano ETSIIT cuarta planta",  "Plano ETSIIT quinta planta", "Plano ETSIIT completo",
 
     };
@@ -92,7 +92,7 @@ public final class DisplayImage {
         frame.setVisible(true);
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(new MyDispatcher());
-        setPlanta(6); // completa
+        setPlanta(7); // completa
     }
 
     public void sube()
