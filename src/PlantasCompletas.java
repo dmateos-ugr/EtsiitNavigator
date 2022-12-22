@@ -7,8 +7,17 @@ public final class PlantasCompletas {
         switch(a){
             case 7: {
                 //completa -> botones: 2
-                String[] nomCompleta = new String[]{"ETSIIT", "ETSIIT completa"};
-                String[] infoCompleta = new String[]{"ETSIIT", "ETSIIT completa"};
+                String uno=" La Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de Granada es un centro universitario perteneciente a la Universidad de Granada,\n " +
+                        "dedicado a la docencia e investigación de los estudios relacionados con la informática, las ciencias de la computación y las telecomunicaciones.\n" +
+                        "En los últimos años se sitúa entre las cincuenta mejores escuelas a nivel mundial en la materia Ciencias de la Computación, concretamente, durante el año 2017 se situó en la posición 33 de acuerdo al ranking de Shanghái. \n" +
+                        "Se ubica en el Campus Universitario de Aynadamar, junto a la Facultad de Bellas Artes y al Centro de Investigación en Tecnologías de la Información y la comunicación de la UGR (CITIC-UGR).";
+
+                String dos="Situandonos en este punto podremos acceder a los dos edificios principales de la etsiit, el primero en el que se encuentra la secretaria, la biblioteca y la administración y el segundo en el que se encuentran las aulas. \n" +
+                        "También podemos ir a las aulas prefabricadas";
+
+
+                String[] nomCompleta = new String[]{"ETSIIT", "Patio"};
+                String[] infoCompleta = new String[]{uno, dos};
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
                         new Rectangle(100,100,100,100)
@@ -17,59 +26,62 @@ public final class PlantasCompletas {
             }
             break;
             case 6: {
-                //quinta -> botones: 1
+                //quinta -> botones: 0
                 String[] nomQuinta= new String[]{ "ETSIIT quinta"};
                 String[] infoQuinta = new String[]{"ETSIIT quinta"};
 
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(100,100,100,100)
+                        new Rectangle(0,0,0,0)
                 };
                 res = new Planta(img, _img, nomQuinta, infoQuinta, rectBoton);
             }
             break;
             case 5: {
-                //cuarta -> botones: 3
-                String[] nomCuarta = new String[]{"ETSIIT", "ETSIIT cuarta", "botonInfo"};
-                String[] infoCuarta = new String[]{"ETSIIT", "ETSIIT cuarta", "botonInfo"};
+                //cuarta -> botones: 1
+                String uno= "En esta planta no hay aulas solo despachos";
+                String[] nomCuarta = new String[]{"Cuarta planta"};
+                String[] infoCuarta = new String[]{uno};
 
 
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100),
-                        new Rectangle(50,50,50,50)
                 };
                 res = new Planta(img, _img, nomCuarta, infoCuarta, rectBoton);
             }
             break;
             case 4: {
-                //tercera -> botones: 3
-                String[] nomTercera = new String[]{"ETSIIT", "ETSIIT tercera","botonInfo"};
-                String[] infoTercera = new String[]{"ETSIIT", "ETSIIT tercera","botonInfo"};
+                //tercera -> botones: 1
+                String uno="Despacho del profesor Marcelino Cabrera, profesor de la asignatura Nuevos Paradigmas de Interacción.";
+                String[] nomTercera = new String[]{"Despacho 21"};
+                String[] infoTercera = new String[]{uno};
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100),
-                        new Rectangle(50,50,50,50)
                 };
                 res = new Planta(img, _img, nomTercera, infoTercera, rectBoton);
             }
             break;
 
             case 3: {
-                //segunda -> botones: 2
-                String[] nomSegunda = new String[]{"ETSIIT", "ETSIIT segunda"};
-                String[] infoSegunda = new String[]{"ETSIIT", "ETSIIT segunda"};
+                //segunda -> botones: 1
+                String uno=" Los departamentos con sede principal en el centro son: Departamento de Arquitectura y Tecnología de Computadores, Departamento de Ciencias de la Computación e Inteligencia Artificial,\n" +
+                        "Departamento de Lenguajes y Sistemas Informáticos y Departamento de Teoría de la Señal, Telemática y Comunicaciones";
+
+                String[] nomSegunda = new String[]{"Departamentos"};
+                String[] infoSegunda = new String[]{uno};
 
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100)
                 };
                 res = new Planta(img, _img, nomSegunda, infoSegunda, rectBoton);
             }
             break;
             case 2: {
                 //primera -> botones: 2
-                String[] nomPrimera = new String[]{"ETSIIT", "ETSIIT primera"};
-                String[] infoPrimera = new String[]{"ETSIIT", "ETSIIT primera"};
+                String uno="Horario de lunes a viernes de 8:30 a 20:30, dispone de un amplio de catálogo de libros disponibles para su prestamo";
+                String dos="Aulas de estudio grupales que se pueden alquilar durante 3 horas para realizar trabajos grupales ";
+
+                String[] nomPrimera = new String[]{"Biblioteca", "Aulas de estudio"};
+                String[] infoPrimera = new String[]{uno, dos};
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
                         new Rectangle(100,100,100,100)
@@ -79,8 +91,12 @@ public final class PlantasCompletas {
             break;
 
             case 1: {
-                String[] nomBaja = new String[]{"ETSIIT baja"};
-                String[] infoBaja = new String[]{"ETSIIT baja"};
+                //baja -> botones: 2
+                String uno="La Secretaría de la ETSIIT se encuentra en el hall principal, constituyendo el centro administrativo del centro. Los trámites administrativos relacionados de matriculación, \n" +
+                        "solicitud de becas y otros muchos se realizan a través de la Administración Electrónica. El horario de atención al público es de 9 a 14 horas, de lunes a viernes";
+                String dos="Baños de la planta 0 del edificio de aulas";
+                String[] nomBaja = new String[]{"Secretaria", "Baños edificio aulas"};
+                String[] infoBaja = new String[]{uno,dos};
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
                         new Rectangle(100,100,100,100)
@@ -91,11 +107,17 @@ public final class PlantasCompletas {
 
 
             case 0: {
-                String[] nomSotano = new String[]{"ETSIIT sotano"};
-                String[] infoSotano = new String[]{"ETSIIT sotano"};
+                //sotano -> botones: 3
+                String uno="Comedores UGR su horario es de lunes a viernes de 13:00 a 15:30 horas. Precio: 3.5 euros";
+                String dos="Cafeteria de la ETSIIT su horario de lunes a viernes de 8:30 a 20:30";
+                String tres="Salon de actos de la ETSIIT con una capacidad de 196 personas";
+
+                String[] nomSotano = new String[]{"Comedores","Cafeteria","Salon de actos"};
+                String[] infoSotano = new String[]{uno,dos,tres};
                 Rectangle[] rectBoton = new Rectangle[]{
                         new Rectangle(200,200,200,200),
-                        new Rectangle(100,100,100,100)
+                        new Rectangle(100,100,100,100),
+                        new Rectangle(10,10,100,100)
                 };
                 res = new Planta(img, _img, nomSotano, infoSotano, rectBoton);
             }
