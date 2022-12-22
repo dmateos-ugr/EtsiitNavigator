@@ -8,6 +8,8 @@ import java.io.IOException;
 
 public final class DisplayImage {
 
+    private int resultWidth, resultHeight;
+
     private class MyDispatcher implements KeyEventDispatcher {
         @Override
         public boolean dispatchKeyEvent(KeyEvent e) {
@@ -51,8 +53,6 @@ public final class DisplayImage {
         float imgRatio = (float)img.getWidth()/img.getHeight();
         float appRatio = (float)appWidth/appHeight;
 
-        int resultWidth;
-        int resultHeight;
         if (imgRatio >= appRatio) {
             // La imagen es mas ancha que la pantalla
             resultWidth = appWidth;
@@ -73,6 +73,7 @@ public final class DisplayImage {
         float ratio = 0.96f;
         appWidth = (int) (ventanaMaximizada.width * ratio);
         appHeight = (int) (ventanaMaximizada.height * ratio);
+        Planta._canvas = new Dimension(appWidth,appHeight);
 
         frame = new JFrame();
         cards = new JPanel(new CardLayout());
@@ -80,9 +81,9 @@ public final class DisplayImage {
         for(int i=0;i<num_imgs;++i){
             BufferedImage img = ImageIO.read(new File(imageFilenames[i]));
             Image scaledImg = getScaledImg(img);
-            cards.add(PlantasCompletas.getPlanta(i,scaledImg).getImagePanel(),String.valueOf(i));
+            Dimension _img = new Dimension(resultWidth,resultHeight);
+            cards.add(PlantasCompletas.getPlanta(i,scaledImg,_img).getImagePanel(),String.valueOf(i));
         }
-
         frame.add(cards,BorderLayout.CENTER);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // ventana maximizada
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

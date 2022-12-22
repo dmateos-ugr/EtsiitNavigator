@@ -2,7 +2,7 @@ import java.awt.*;
 
 public final class PlantasCompletas {
 
-    public static Planta getPlanta(int a,Image img){
+    public static Planta getPlanta(int a,Image img, Dimension _img){
         Planta res = null;
         switch(a){
             case 6: {
@@ -17,7 +17,7 @@ public final class PlantasCompletas {
                         new Dimension(100, 100),
                         new Dimension(100, 100)
                 };
-                res = new Planta(img, nomCompleta, infoCompleta, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomCompleta, infoCompleta, posicionBotones, dimensionBotones);
             }
             break;
             case 5: {
@@ -34,7 +34,7 @@ public final class PlantasCompletas {
                         new Dimension(100, 100),
                         new Dimension(100, 100)
                 };
-                res = new Planta(img, nomQuinta, infoQuinta, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomQuinta, infoQuinta, posicionBotones, dimensionBotones);
             }
             break;
             case 4: {
@@ -54,7 +54,7 @@ public final class PlantasCompletas {
                         new Dimension(100,100)
 
                 };
-                res = new Planta(img, nomCuarta, infoCuarta, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomCuarta, infoCuarta, posicionBotones, dimensionBotones);
             }
             break;
             case 3: {
@@ -73,7 +73,7 @@ public final class PlantasCompletas {
                         new Dimension(100,100)
 
                 };
-                res = new Planta(img, nomTercera, infoTercera, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomTercera, infoTercera, posicionBotones, dimensionBotones);
             }
             break;
 
@@ -90,7 +90,7 @@ public final class PlantasCompletas {
                         new Dimension(100, 100),
                         new Dimension(100, 100)
                 };
-                res = new Planta(img, nomSegunda, infoSegunda, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomSegunda, infoSegunda, posicionBotones, dimensionBotones);
             }
             break;
             case 1: {
@@ -105,7 +105,7 @@ public final class PlantasCompletas {
                         new Dimension(100, 100),
                         new Dimension(100, 100)
                 };
-                res = new Planta(img, nomPrimera, infoPrimera, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomPrimera, infoPrimera, posicionBotones, dimensionBotones);
             }
             break;
 
@@ -120,7 +120,7 @@ public final class PlantasCompletas {
                         new Dimension(100, 100),
                         new Dimension(100, 100)
                 };
-                res = new Planta(img, nomBaja, infoBaja, posicionBotones, dimensionBotones);
+                res = new Planta(img, _img, nomBaja, infoBaja, posicionBotones, dimensionBotones);
             }
             break;
         }
