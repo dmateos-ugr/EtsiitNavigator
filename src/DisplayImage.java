@@ -1,13 +1,25 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public final class DisplayImage {
+
+    private class MyDispatcher implements KeyEventDispatcher {
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if(e.getKeyChar() == '1' && e.getID() == KeyEvent.KEY_PRESSED){
+                sube();
+            }else if(e.getKeyChar() == '2' && e.getID() == KeyEvent.KEY_PRESSED){
+                baja();
+            }
+            return false;
+        }
+    }
+
     static final String[] imageFilenames = new String[]{
             "Planos/completa.jpg", "Planos/quinta.jpg", "Planos/cuarta.jpg", "Planos/tercera.jpg",
             "Planos/segunda.jpg", "Planos/primera.jpg", "Planos/baja.jpg"
@@ -17,24 +29,16 @@ public final class DisplayImage {
             "Plano ETSIIT segunda planta", "Plano ETSIIT primera planta", "Plano ETSIIT planta baja",
     };
 
-    //num de botones que tiene cada planta
-    static final int[] numbotones = new int[]{2, 1, 3, 3, 2, 2, 1};
-
     int appWidth, appHeight;
-    Image[] imgs;
     JFrame frame;
+    JPanel cards;
+    int num_imgs = 7;
     int currentIndex=0;
-    int currenBoton=0;
-
-    private int resultWidth, resultHeight;
 
     private void setPlanta(int pos) throws IOException {
-        // Obtener label y actualizar su imagen
-        Component comp = frame.getContentPane().getComponent(0);
-        BufferedImage img = ImageIO.read(new File(imageFilenames[currentIndex]));
-        Image scaledImg = getScaledImg(img);
-        comp = PlantasCompletas.getPlanta(currentIndex,scaledImg).getImagePanel();
-
+        System.out.println(pos);
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, String.valueOf(pos));
         // Actualizar titulo del frame
         frame.setTitle(imageTitulos[pos]);
     }
@@ -45,14 +49,16 @@ public final class DisplayImage {
         float imgRatio = (float)img.getWidth()/img.getHeight();
         float appRatio = (float)appWidth/appHeight;
 
+        int resultWidth;
+        int resultHeight;
         if (imgRatio >= appRatio) {
             // La imagen es mas ancha que la pantalla
             resultWidth = appWidth;
-            resultHeight = (int)(resultWidth/imgRatio);
+            resultHeight = (int)(resultWidth /imgRatio);
         } else {
             // La imagen es mas alta que la pantalla
             resultHeight = appHeight;
-            resultWidth = (int)(resultHeight*imgRatio);
+            resultWidth = (int)(resultHeight *imgRatio);
         }
 
         return img.getScaledInstance(resultWidth, resultHeight, Image.SCALE_SMOOTH);
@@ -67,37 +73,26 @@ public final class DisplayImage {
         appHeight = (int) (ventanaMaximizada.height * ratio);
 
         frame = new JFrame();
+        cards = new JPanel(new CardLayout());
 
-        BufferedImage img = ImageIO.read(new File(imageFilenames[0]));
-        Image scaledImg = getScaledImg(img);
-        ImagePanel default_panel = PlantasCompletas.getPlanta(0,scaledImg).getImagePanel();
-        default_panel.setVisible(true);
+        for(int i=0;i<num_imgs;++i){
+            BufferedImage img = ImageIO.read(new File(imageFilenames[i]));
+            Image scaledImg = getScaledImg(img);
+            cards.add(PlantasCompletas.getPlanta(i,scaledImg).getImagePanel(),String.valueOf(i));
+        }
 
-        frame.add(default_panel);
+        frame.add(cards,BorderLayout.CENTER);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // ventana maximizada
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyPressed(KeyEvent event) {
-                super.keyPressed(event);
-                char key = event.getKeyChar();
-                if (key == '1') {
-                    sube();
-
-                } else if (key == '2') {
-                    baja();
-
-                }
-            }
-        });
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
     }
 
     public void sube()
     {
-        currentIndex = Math.floorMod(currentIndex + 1, imgs.length);
+        currentIndex = Math.floorMod(currentIndex + 1, 6);
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
@@ -108,7 +103,7 @@ public final class DisplayImage {
 
     public void baja()
     {
-        currentIndex = Math.floorMod(currentIndex - 1, imgs.length);
+        currentIndex = Math.floorMod(currentIndex - 1, 6);
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
