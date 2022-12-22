@@ -19,8 +19,8 @@ public final class PlantasCompletas {
                 String[] nomCompleta = new String[]{"ETSIIT", "Patio"};
                 String[] infoCompleta = new String[]{uno, dos};
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(250,400,100,100),
-                        new Rectangle(170,200,120,100)
+                        new Rectangle(80,80,100,100),
+                        new Rectangle(256,459,350,100)
                 };
                 res = new Planta(img, _img,_old, nomCompleta, infoCompleta, rectBoton);
             }
@@ -44,7 +44,7 @@ public final class PlantasCompletas {
 
 
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(200,200,200,200),
+                        new Rectangle(229,268,50,50),
                 };
                 res = new Planta(img, _img,_old, nomCuarta, infoCuarta, rectBoton);
             }
