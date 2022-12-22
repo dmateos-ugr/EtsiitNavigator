@@ -12,6 +12,8 @@ public class Planta {
     public String[] nomCompleta;
     public String[] infoCompleta;
 
+    static ImageIcon gifImg = new ImageIcon("Planos/114_2.gif");
+
     public Planta(Image imagen, Dimension img, String[] nomCompleta,
                   String[] infoCompleta, Rectangle[] botones) {
         this.imagen = imagen;
@@ -25,7 +27,12 @@ public class Planta {
         ImagePanel res = new ImagePanel(imagen, _canvas, _img);
         res.setLayout(null);
         for(int i=0;i<nomCompleta.length;++i){
-            JButton jb = new JButton();
+            JLabel gif = new JLabel(gifImg);
+            gif.setBounds(0, 0, 100, 100);
+            gif.setVisible(false);
+            res.add(gif);
+
+            JButton jb = new HoverButton(gif);
             jb.setContentAreaFilled(false);
             jb.setFocusPainted(true);
             jb.setBounds(rectBoton[i]);

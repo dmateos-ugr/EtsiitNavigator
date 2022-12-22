@@ -36,7 +36,6 @@ public final class DisplayImage {
     int appWidth, appHeight;
     JFrame frame;
     JPanel cards;
-    int num_imgs = 7;
     int currentIndex=0;
 
     private void setPlanta(int pos) throws IOException {
@@ -78,7 +77,7 @@ public final class DisplayImage {
         frame = new JFrame();
         cards = new JPanel(new CardLayout());
 
-        for(int i=0;i<num_imgs;++i){
+        for(int i=0;i<imageFilenames.length;++i){
             BufferedImage img = ImageIO.read(new File(imageFilenames[i]));
             Image scaledImg = getScaledImg(img);
             Dimension _img = new Dimension(resultWidth,resultHeight);
@@ -95,7 +94,7 @@ public final class DisplayImage {
 
     public void sube()
     {
-        currentIndex = Math.floorMod(currentIndex + 1, 6);
+        currentIndex = Math.floorMod(currentIndex + 1, imageFilenames.length);
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
@@ -106,7 +105,7 @@ public final class DisplayImage {
 
     public void baja()
     {
-        currentIndex = Math.floorMod(currentIndex - 1, 6);
+        currentIndex = Math.floorMod(currentIndex - 1, imageFilenames.length);
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
