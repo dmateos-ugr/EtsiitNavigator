@@ -104,6 +104,7 @@ public final class DisplayImage {
     public void sube()
     {
         currentIndex = Math.floorMod(currentIndex + 1, imageFilenames.length);
+        HoverButton.cancelTimer();
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
@@ -115,6 +116,7 @@ public final class DisplayImage {
     public void baja()
     {
         currentIndex = Math.floorMod(currentIndex - 1, imageFilenames.length);
+        HoverButton.cancelTimer();
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {

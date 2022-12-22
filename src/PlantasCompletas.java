@@ -55,7 +55,7 @@ public final class PlantasCompletas {
                 String[] nomTercera = new String[]{"Despacho 21"};
                 String[] infoTercera = new String[]{uno};
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(200,200,200,200),
+                        new Rectangle(200,100,200,200),
                 };
                 res = new Planta(img, _img,_old, nomTercera, infoTercera, rectBoton);
             }

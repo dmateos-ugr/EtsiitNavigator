@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 
 class HoverMouseListener implements MouseListener {
-    Timer timer;
+    static Timer timer;
     JButton button;
     JLabel gif;
     HoverMouseListener(Timer timer, JButton button, JLabel gif) {
@@ -37,9 +37,13 @@ class HoverMouseListener implements MouseListener {
         timer.stop();
         gif.setVisible(false);
     }
+
+    public static void cancelTimer(){
+        timer.stop();
+    }
 }
 public class  HoverButton extends JButton {
-    Timer timer;
+    static Timer timer;
 
     HoverButton(JLabel gif) {
         super();
@@ -63,5 +67,12 @@ public class  HoverButton extends JButton {
                 gif.setBounds(p.x - currBounds.width/2, p.y - currBounds.height/2, currBounds.width, currBounds.height);
             }
         });
+    }
+    public static void cancelTimer(){
+        if(timer.isRunning())
+            timer.stop();
+        if(HoverButton.timer.isRunning())
+            HoverButton.cancelTimer();
+
     }
 }
