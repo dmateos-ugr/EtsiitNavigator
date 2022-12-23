@@ -1,12 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 
 class HoverMouseListener implements MouseListener {
-    static Timer timer;
+    Timer timer;
     JButton button;
     JLabel gif;
     HoverMouseListener(Timer timer, JButton button, JLabel gif) {
@@ -37,13 +35,9 @@ class HoverMouseListener implements MouseListener {
         timer.stop();
         gif.setVisible(false);
     }
-
-    public static void cancelTimer(){
-        timer.stop();
-    }
 }
 public class  HoverButton extends JButton {
-    static Timer timer;
+    Timer timer;
 
     HoverButton(JLabel gif) {
         super();
@@ -68,11 +62,8 @@ public class  HoverButton extends JButton {
             }
         });
     }
-    public static void cancelTimer(){
-        if(timer.isRunning())
-            timer.stop();
-        if(HoverButton.timer.isRunning())
-            HoverButton.cancelTimer();
 
+    public void stopTimer(){
+        timer.stop();
     }
 }

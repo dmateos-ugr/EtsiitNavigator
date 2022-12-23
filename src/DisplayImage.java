@@ -89,7 +89,9 @@ public final class DisplayImage {
             Dimension _old = new Dimension(img.getWidth(),img.getHeight());
             Image scaledImg = getScaledImg(img);
             Dimension _img = new Dimension(resultWidth,resultHeight);
-            cards.add(PlantasCompletas.getPlanta(i,scaledImg,_img,_old).getImagePanel(),String.valueOf(i));
+            ImagePanel plantaPanel = PlantasCompletas.getPlanta(i,scaledImg,_img,_old).getImagePanel();
+            plantaPanel.setName(String.valueOf(i));
+            cards.add(plantaPanel, String.valueOf(i));
         }
         frame.add(cards,BorderLayout.CENTER);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // ventana maximizada
@@ -101,10 +103,29 @@ public final class DisplayImage {
         setPlanta(7); // completa
     }
 
+    private ImagePanel getCurrentCard() {
+        for (Component c : cards.getComponents()) {
+            if (c.getName().equals(String.valueOf(currentIndex))) {
+                return (ImagePanel)c;
+            }
+        }
+        return null;
+    }
+
+    private void desactivarTimers() {
+        ImagePanel panel = getCurrentCard();
+        for (Component c : panel.getComponents()) {
+            if (c.getClass() == HoverButton.class) {
+                HoverButton btn = (HoverButton)c;
+                btn.stopTimer();
+            }
+        }
+    }
+
     public void sube()
     {
+        desactivarTimers();
         currentIndex = Math.floorMod(currentIndex + 1, imageFilenames.length);
-        HoverButton.cancelTimer();
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
@@ -115,8 +136,8 @@ public final class DisplayImage {
 
     public void baja()
     {
+        desactivarTimers();
         currentIndex = Math.floorMod(currentIndex - 1, imageFilenames.length);
-        HoverButton.cancelTimer();
         try {
             setPlanta(currentIndex);
         } catch (IOException e) {
