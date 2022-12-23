@@ -40,7 +40,7 @@ public final class DisplayImage {
     JPanel cards;
     int currentIndex=0;
 
-    private void setPlanta(int pos) throws IOException {
+    private void setPlanta(int pos) {
         currentIndex = pos;
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, String.valueOf(pos));
@@ -126,23 +126,14 @@ public final class DisplayImage {
     {
         desactivarTimers();
         currentIndex = Math.floorMod(currentIndex + 1, imageFilenames.length);
-        try {
-            setPlanta(currentIndex);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        setPlanta(currentIndex);
     }
 
     public void baja()
     {
         desactivarTimers();
         currentIndex = Math.floorMod(currentIndex - 1, imageFilenames.length);
-        try {
-            setPlanta(currentIndex);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        setPlanta(currentIndex);
     }
 
     public void hidepopups(){

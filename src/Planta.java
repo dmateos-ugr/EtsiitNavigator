@@ -1,5 +1,43 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.StrokeBorder;
 import java.awt.*;
+
+class RoundedBorder implements Border {
+    // https://stackoverflow.com/questions/4219511/draw-rectangle-border-thickness
+
+    private int radius;
+
+    RoundedBorder(int radius) {
+        this.radius = radius;
+    }
+    public Insets getBorderInsets(Component c) {
+        return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+    }
+
+    public boolean isBorderOpaque() {
+        return true;
+    }
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // Si es un boton, cambiar el color y la anchura del borde en funcion de si el ratón está encima o no
+        Color prevColor = g2d.getColor();
+        Stroke prevStroke = g2d.getStroke();
+        if (c.getClass() == JButton.class && ((JButton)c).getModel().isRollover()) {
+            g2d.setColor(Color.gray);
+            g2d.setStroke(new BasicStroke(4));
+        } else {
+            g2d.setColor(Color.black);
+            g2d.setStroke(new BasicStroke(2));
+        }
+        g2d.drawRoundRect(x, y, width-1, height-1, radius, radius);
+        g2d.setColor(prevColor);
+        g2d.setStroke(prevStroke);
+    }
+}
+
+
 public class Planta {
 
     public static Dimension _canvas;
@@ -43,14 +81,16 @@ public class Planta {
             gif.setVisible(false);
             res.add(gif);
 
+            float scaleRatio =(float)_img.width/_old.width;
             JButton jb = new HoverButton(gif);
             jb.setName(nomCompleta[i]);
             jb.setContentAreaFilled(false);
             jb.setFocusPainted(true);
             jb.setBounds(rectBoton[i]);
-            jb.setToolTipText(nomCompleta[i]);
+            jb.setBorder(new RoundedBorder((int)(30*scaleRatio)));
+            //jb.setToolTipText(nomCompleta[i]);
             int finalI = i;
-            jb.addActionListener(evt -> Popup.show(nomCompleta[finalI], infoCompleta[finalI]));
+            jb.addActionListener(evt -> Popup.show(nomCompleta[finalI], infoCompleta[finalI], scaleRatio));
             res.add(jb, null);
         }
         return res;
