@@ -19,7 +19,10 @@ public class Popup extends JDialog implements MouseListener {
         JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 3), // borde exterior: linea negra
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)) // borde interior: vacio, margenes
+        );
         //panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Queremos texto negro sin transparencia, pero fondo transparente para que coja el del pane
