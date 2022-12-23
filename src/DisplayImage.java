@@ -41,6 +41,7 @@ public final class DisplayImage {
     int currentIndex=0;
 
     private void setPlanta(int pos) {
+        hidepopups();
         currentIndex = pos;
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, String.valueOf(pos));
