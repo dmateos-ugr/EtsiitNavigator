@@ -87,7 +87,7 @@ public class Planta {
             jb.setFocusPainted(true);
             jb.setBounds(rectBoton[i]);
             jb.setBorder(new RoundedBorder((int)(30*scaleRatio)));
-            //jb.setToolTipText(nomCompleta[i]);
+            jb.setToolTipText(nomCompleta[i]);
             int finalI = i;
             jb.addActionListener(evt -> Popup.show(nomCompleta[finalI], infoCompleta[finalI], scaleRatio));
             res.add(jb, null);

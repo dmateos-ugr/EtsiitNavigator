@@ -17,7 +17,7 @@ public class Popup extends JDialog implements MouseListener {
         //        new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
 
         JPanel panel = new JPanel();
-        panel.setOpaque(false);
+        panel.setOpaque(true);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         int margin = (int)(6 * scaleRatio);
         panel.setBorder(BorderFactory.createCompoundBorder(
