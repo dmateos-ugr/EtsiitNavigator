@@ -36,7 +36,7 @@ class HoverMouseListener implements MouseListener {
         gif.setVisible(false);
 
         // TODO que se haga invisible de verdad cuando justo despues entra en otro rectangulo. Esto no funciona.
-        System.out.println("mouseExited " + this.button.getName());
+        //System.out.println("mouseExited " + this.button.getName());
         gif.invalidate();
         gif.revalidate();
         gif.repaint();
