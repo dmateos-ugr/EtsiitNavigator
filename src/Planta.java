@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.StrokeBorder;
 import java.awt.*;
 
 class RoundedBorder implements Border {

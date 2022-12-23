@@ -14,31 +14,8 @@ class Vector2 {
     public String toString() {
         return "(" + this.x + ", " + this.y + ")";
     }
-
-    public static Vector2 from(Vector v) {
-        return new Vector2(v.getX(), v.getY());
-    }
-
-    public boolean isInsideRect(Rect rect) {
-        return x >= rect.top_left.x && x <= rect.bottom_right.x &&
-                y >= rect.top_left.y && y <= rect.bottom_right.y;
-    }
 }
 
-
-//EN PROCESO
-class Rect {
-    Vector2 top_left, bottom_right;
-
-    public Rect(float top, float left, float bottom, float right) {
-        top_left = new Vector2(top, left);
-        bottom_right = new Vector2(bottom, right);
-    }
-
-    public static Rect ofSize(float top, float left, float height, float width) {
-        return new Rect(top, left, top+height, left+width);
-    }
-}
 
 
 public class LeapListener extends Listener {
@@ -47,10 +24,6 @@ public class LeapListener extends Listener {
     DisplayImage displayImage;
 
     private long lastSwipeTimestampMicrosecs;
-
-    private boolean insideRect;
-    private long insideRectSinceTimestampMicrosecs;
-    private boolean insideRectAlreadyClicked;
 
 
     // Transformar un punto 3D del frame a un punto 2D de la app
@@ -107,23 +80,6 @@ public class LeapListener extends Listener {
             Vector2 p = toAppPoint(hand.stabilizedPalmPosition(), frame);
             Mouse.moveTo(p);
             System.out.print("\r" + p);
-
-            // Ejemplo de lo del rectangulo. Lo suyo es hacer algo similar para cada rectangulo de las fotos que se
-            // pueda clickar. Cuando se tengan los rectangulos hechos se piensa como generalizar esto.
-            insideRect = p.isInsideRect(new Rect(800, 600,1000, 800));
-            if (insideRect) {
-                if (!insideRectAlreadyClicked) {
-                    if (insideRectSinceTimestampMicrosecs == 0)
-                        insideRectSinceTimestampMicrosecs = frame.timestamp();
-                    if (frame.timestamp() - insideRectSinceTimestampMicrosecs >= 1_000_000) {
-                        System.out.println("inside rect for 1s");
-                        insideRectAlreadyClicked = true;
-                    }
-                }
-            } else {
-                insideRectSinceTimestampMicrosecs = 0;
-                insideRectAlreadyClicked = false;
-            }
 
             Finger finger = hand.fingers().get(1); // dedo indice
             if (finger.isExtended()) {
@@ -184,11 +140,9 @@ public class LeapListener extends Listener {
                         displayImage.sube();
                         System.out.println("swipe down");
                     } else if (swipe.direction().getX() > 0.7) {
-                        // TODO: quitar popup
                         displayImage.hidepopups();
                         System.out.println("swipe right");
                     } else if (swipe.direction().getX() < -0.7) {
-                        // TODO: quitar popup
                         displayImage.hidepopups();
                         System.out.println("swipe left");
                     }
