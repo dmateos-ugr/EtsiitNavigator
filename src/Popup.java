@@ -9,7 +9,7 @@ public class Popup extends JDialog implements MouseListener {
         text = "<html><div style='text-align: center;'>" + text.replace("\n", "<br>") + "</div></html>";
 
         setUndecorated(true);
-        setBackground(new Color(100, 100, 100, 150));
+        setBackground(new Color(255, 255, 255, 150));
 
         // background paint
         //lpg = new LinearGradientPaint(0, 0, 0, getHeight() / 2, new float[] { 0f,
@@ -17,7 +17,7 @@ public class Popup extends JDialog implements MouseListener {
         //        new Color(0.7f, 0.7f, 1f), new Color(0.6f, 0.6f, 1f) });
 
         JPanel panel = new JPanel();
-        panel.setOpaque(true);
+        panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         int margin = (int)(6 * scaleRatio);
         panel.setBorder(BorderFactory.createCompoundBorder(
