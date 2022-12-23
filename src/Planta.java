@@ -44,14 +44,13 @@ public class Planta {
             res.add(gif);
 
             JButton jb = new HoverButton(gif);
+            jb.setName(nomCompleta[i]);
             jb.setContentAreaFilled(false);
             jb.setFocusPainted(true);
             jb.setBounds(rectBoton[i]);
             jb.setToolTipText(nomCompleta[i]);
             int finalI = i;
-            jb.addActionListener(evt -> JOptionPane.showOptionDialog(null, infoCompleta[finalI],
-                    nomCompleta[finalI], JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    null, new Object[]{}, null));
+            jb.addActionListener(evt -> Popup.show(nomCompleta[finalI], infoCompleta[finalI]));
             res.add(jb, null);
         }
         return res;
