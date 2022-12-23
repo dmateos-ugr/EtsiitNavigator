@@ -115,9 +115,9 @@ public final class PlantasCompletas {
                 String[] nomSotano = new String[]{"Comedores","Cafeteria","Salon de actos"};
                 String[] infoSotano = new String[]{uno,dos,tres};
                 Rectangle[] rectBoton = new Rectangle[]{
-                        new Rectangle(312,280,200,100),
-                        new Rectangle(165,231,100,100),
-                        new Rectangle(265,240,100,100)
+                        new Rectangle(291,334,200,100),
+                        new Rectangle(165,221,100,100),
+                        new Rectangle(285,250,75,75)
                 };
                 res = new Planta(img, _img,_old, nomSotano, infoSotano, rectBoton);
             }
