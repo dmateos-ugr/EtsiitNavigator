@@ -23,7 +23,7 @@ class RoundedBorder implements Border {
         // Si es un boton, cambiar el color y la anchura del borde en funcion de si el ratón está encima o no
         Color prevColor = g2d.getColor();
         Stroke prevStroke = g2d.getStroke();
-        if (c.getClass() == JButton.class && ((JButton)c).getModel().isRollover()) {
+        if (c instanceof JButton && ((JButton)c).getModel().isRollover()) {
             g2d.setColor(Color.gray);
             g2d.setStroke(new BasicStroke(4));
         } else {
